@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Aniversário, Amor!</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            position: relative;
+            background-color: #fff5f5;
+            min-height: 100vh;
+            overflow-y: auto;
+            padding: 0 10px;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            color: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+            padding-bottom: 100px;
+        }
+
+        /* Estilo para a carta */
+        .scroll {
+            width: 60%;
+            max-width: 400px;
+            height: 600px;
+            background: url('carta.jpg') no-repeat center;
+            background-size: cover;
+            padding: 20px;
+            font-size: 18px;
+            line-height: 1.5;
+            opacity: 0;
+            transform: scaleY(0);
+            transform-origin: top bottom;
+            transition: transform 1.5s ease-out, opacity 1.5s ease-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            text-align: center;
+            margin-top: -30px;
+        }
+
+        .scroll img {
+            max-width: 80%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px; /* Espaço entre a imagem e o texto */
+        }
+
+        .scroll p {
+            margin: 0;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            background: none;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        .heart {
+            position: absolute;
+            top: -10vh;
+            font-size: 24px;
+            color: red;
+            animation: fall linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <audio id="music" src="Thinking Out Loud.mp3" loop></audio>
+    <button id="playMusic">Tocar Música 🎶</button>
+    
+    <div class="content">
+        <h1>Feliz Aniversário, Meu Amor! ❤️</h1>
+
+        <div class="scroll" id="scroll">
+            <!-- Imagem acima do parágrafo -->
+            <img src="us.jpg" alt="Imagem" />
+            <p>Querido amor, hoje é um dia muito especial, e eu só quero te lembrar o quanto você significa para mim. Cada momento ao seu lado é uma bênção, e sou grata por compartilhar essa jornada com você. Eu me apaixono por você a cada dia, ter você na minha vida é um privilégio. Você é a melhor pessoa que eu conheço e eu lhe desejo todas as coisas boas dessa vida para você mesmo sabendo que todas elas ainda é pouco para o homem incrível que você é. Te amo infinitamente, Parabéns! ❤️</p>
+        </div>
+    </div>
+    
+    <script>
+        const music = document.getElementById('music');
+        const playButton = document.getElementById('playMusic');
+        let isPlaying = false;
+        
+        playButton.addEventListener('click', function () {
+            if (isPlaying) {
+                music.pause();
+                playButton.textContent = "Tocar Música 🎶";
+            } else {
+                music.play().catch(error => console.log("Erro ao reproduzir música: ", error));
+                playButton.textContent = "Parar Música ⏹";
+            }
+            isPlaying = !isPlaying;
+        });
+        
+        window.onload = function () {
+            document.getElementById("scroll").style.transform = "scaleY(1)";
+            document.getElementById("scroll").style.opacity = "1";
+            createHearts();
+            
+            // Iniciar música automaticamente ao carregar a página
+            music.play().catch(error => console.log("Erro ao reproduzir música: ", error));
+        };
+        
+        function createHearts() {
+            setInterval(() => {
+                let heart = document.createElement("div");
+                heart.classList.add("heart");
+                heart.innerHTML = "❤️";
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animationDuration = (Math.random() * 5 + 3) + "s";
+                document.body.appendChild(heart);
+                setTimeout(() => {
+                    heart.remove();
+                }, 8000);
+            }, 200);
+        }
+    </script>
+</body>
+</html>
